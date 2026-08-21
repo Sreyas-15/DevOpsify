@@ -1,8 +1,14 @@
 # Terraform state
+
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+
 *.tfstate
 *.tfstate.*
 terraform.tfstate
 terraform.tfstate.*
+
 
 # Terraform working directory
 .terraform/
