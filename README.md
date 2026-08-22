@@ -70,6 +70,7 @@ Internet Gateway
       ↓
 Internet
 ```
+<img width="800" height="1300" alt="Flwchart Image Aug 22, 2026, 02_45_07 PM" src="https://github.com/user-attachments/assets/4e46dfa5-5a32-47c3-97c7-19b276fe213a" />
 
 ## Request Path
 
