@@ -32,12 +32,4 @@ terraform {
   }
 }
 
-resource "aws_s3_bucket" "my-statefile-bucket_devopsify-prod" {
-  bucket = "my-statefile-bucket-devopsify-prod"
-
-  tags = {
-    Name        = "My bucket"
-    Environment = "prod"
-  }
-}
 
