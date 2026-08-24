@@ -8,15 +8,16 @@ terraform {
     }
   }
 
+
   backend "s3" {
-    bucket       = "REPLACE-WITH-YOUR-BUCKET-NAME"
-    key          = "infra/terraform.tfstate"
+    bucket       = "my-statefile-bucket-devopsify"
+    key          = "terraform.tfstate"
     region       = "us-east-1"
     use_lockfile = true
     encrypt      = true
   }
-}
 
+}
 provider "aws" {
   region = var.region
 
@@ -37,12 +38,10 @@ locals {
   }
 }
 
-# ══════════════════════════════════════════════
 # VPC MODULE
-# ══════════════════════════════════════════════
 
-module "vpc" {
-  source = "../terraform-vpc-module"
+module "VPC" {
+  source = "./moduleS/VPC"
 
   project              = var.project
   environment          = var.environment
@@ -53,19 +52,17 @@ module "vpc" {
   common_tags          = local.common_tags
 }
 
-# ══════════════════════════════════════════════
 # EKS MODULE
-# ══════════════════════════════════════════════
 
-module "eks" {
-  source = "../terraform-eks-module"
+module "EKS" {
+  source = "./moduleS/EKS"
 
   project      = var.project
   environment  = var.environment
   cluster_name = var.cluster_name
 
-  subnet_ids      = concat(module.vpc.public_subnet_ids, module.vpc.private_subnet_ids)
-  node_subnet_ids = module.vpc.private_subnet_ids
+  subnet_ids      = concat(module.VPC.public_subnet_ids, module.VPC.private_subnet_ids)
+  node_subnet_ids = module.VPC.private_subnet_ids
 
   cluster_version     = var.cluster_version
   node_instance_types = var.node_instance_types
